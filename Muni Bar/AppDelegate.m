@@ -60,21 +60,24 @@ NSString* stopId = @"13329";
         }
     }
     
-    for (NSInteger i = 0; i < [arrivals count]; i++) {
+    NSString* title = @"";
+    for (NSInteger i = [arrivals count] -  1; i >= 0; i--) {
         NSDictionary* arrival = arrivals[i];
         if ([arrival objectForKey:@"estimated"]) {
         double estimatedTime = [[arrival objectForKey:@"estimated"] doubleValue]/1000;
         NSDate* arrivalDate = [NSDate dateWithTimeIntervalSince1970:estimatedTime];
         double minutes = [arrivalDate timeIntervalSinceNow] / 60;
         
-        NSMenuItem *item = [statusMenu insertItemWithTitle:[NSString stringWithFormat:@"Bus: %@ - %.0lfm", [arrival valueForKey:@"route"], minutes] action:nil keyEquivalent:@"" atIndex:i];
+        NSMenuItem *item = [statusMenu insertItemWithTitle:[NSString stringWithFormat:@"Bus: %@ - %.0lfm", [arrival valueForKey:@"route"], minutes] action:nil keyEquivalent:@"" atIndex:0];
         
-        //A sort-of hack to not receive a warning about the unused item variable.
-        if(i == 0){
-            [statusItem setTitle:item.title];
-        }
+            title = item.title;
+            [statusItem setTitle:title];
+            
         }
     }
+    [statusMenu insertItem:[NSMenuItem separatorItem] atIndex:0];
+    [statusMenu insertItemWithTitle:[NSString stringWithFormat:@"Stop ID: %@", stopId] action:nil keyEquivalent:@"" atIndex:0];
+    
 }
 
 

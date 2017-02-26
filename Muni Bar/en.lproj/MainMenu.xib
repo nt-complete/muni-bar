@@ -11,7 +11,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <menu title="AMainMenu" systemMenu="main" id="29">
             <items>
                 <menuItem title="Muni Bar" id="56">
@@ -655,15 +655,15 @@
         <customObject id="420" customClass="NSFontManager"/>
         <menu id="538">
             <items>
-                <menuItem isSeparatorItem="YES" tag="9" id="544"/>
-                <menuItem title="Refresh" id="539">
+                <menuItem isSeparatorItem="YES" tag="9" id="Xy5-y8-PWh"/>
+                <menuItem title="Refresh" tag="11" id="539">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="loadPredictions:" target="494" id="547"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="546"/>
-                <menuItem title="Quit" id="545">
+                <menuItem title="Quit Trimet Bud" id="545">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="terminate:" target="-3" id="551"/>
