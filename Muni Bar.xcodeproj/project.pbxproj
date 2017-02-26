@@ -13,6 +13,7 @@
 		6550230516DDD7EC00446CF4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 6550230316DDD7EC00446CF4 /* Credits.rtf */; };
 		6550230816DDD7EC00446CF4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6550230716DDD7EC00446CF4 /* AppDelegate.m */; };
 		6550230B16DDD7ED00446CF4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6550230916DDD7ED00446CF4 /* MainMenu.xib */; };
+		9CD58A281E629B8100EDFB2A /* appkey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9CD58A271E629B8100EDFB2A /* appkey.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		6550230616DDD7EC00446CF4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6550230716DDD7EC00446CF4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		6550230A16DDD7ED00446CF4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		9CD58A271E629B8100EDFB2A /* appkey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = appkey.plist; path = "Muni Bar/appkey.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +48,7 @@
 		655022E816DDD7EC00446CF4 = {
 			isa = PBXGroup;
 			children = (
+				9CD58A271E629B8100EDFB2A /* appkey.plist */,
 				655022FA16DDD7EC00446CF4 /* Muni Bar */,
 				655022F316DDD7EC00446CF4 /* Frameworks */,
 				655022F216DDD7EC00446CF4 /* Products */,
@@ -153,6 +156,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CD58A281E629B8100EDFB2A /* appkey.plist in Resources */,
 				655022FF16DDD7EC00446CF4 /* InfoPlist.strings in Resources */,
 				6550230516DDD7EC00446CF4 /* Credits.rtf in Resources */,
 				6550230B16DDD7ED00446CF4 /* MainMenu.xib in Resources */,
@@ -303,6 +307,7 @@
 				6550231016DDD7ED00446CF4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

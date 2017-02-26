@@ -11,6 +11,7 @@
 
 @implementation AppDelegate
 
+NSString* stopId = @"13329";
 
 - (void)awakeFromNib {
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
@@ -35,55 +36,46 @@
 
 -(IBAction)loadPredictions:(id)sender {
     
-    NSURL *theURL = [NSURL URLWithString:@"http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=sf-muni&stopId=17355&routeTag=KT"];
-    NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:theURL];
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"appkey" ofType:@"plist"];
+    NSDictionary *configuration = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
     
-    [minuteArray removeAllObjects];
-    inDesiredDirection = NO;
+    NSString *appId = configuration[@"appkey"];
     
-    [parser setDelegate:self];
-    [parser parse];
-}
-
-/*
- A lot of hardcoded stuff in here.
- For reference: http://webservices.nextbus.com/service/publicXMLFeed?command=predictions&a=sf-muni&stopId=17355&routeTag=KT
- */
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict {
-    if ([elementName isEqualToString:@"direction"] && [[attributeDict objectForKey:@"title"] isEqualToString:@"Outbound to Balboa Park Station via Downtown"]){
-        inDesiredDirection = YES;
-    }
     
-    if ([elementName isEqual:@"prediction"] && inDesiredDirection) {
-        [minuteArray addObject:[attributeDict objectForKey:@"minutes"]];
-    }
-}
-
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
-    if([elementName isEqualToString:@"direction"] && inDesiredDirection){
-        inDesiredDirection = NO;
-
-        // Loop through existing menu items and delete anything
-        // up to our first separator.
-        for (NSMenuItem *item in [statusMenu itemArray]){
-            if(item.tag == kEndMinuteSeparator){
-                break;
-            } else {
-                [statusMenu removeItem:item];
-            }
+    NSURL *theURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://developer.trimet.org/ws/V2/arrivals?appID=%@&locIDs=%@", appId, stopId]];
+    NSData *data = [NSData dataWithContentsOfURL:theURL];
+    NSError *error = nil;
+    NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+    NSLog(@"Loading predictions");
+    NSArray     *arrivals = [[response objectForKey:@"resultSet"] objectForKey:@"arrival"];
+    
+    
+    // Loop through existing menu items and delete anything
+    // up to our first separator.
+    for (NSMenuItem *item in [statusMenu itemArray]){
+        if(item.tag == kEndMinuteSeparator){
+            break;
+        } else {
+            [statusMenu removeItem:item];
         }
+    }
+    
+    for (NSInteger i = 0; i < [arrivals count]; i++) {
+        NSDictionary* arrival = arrivals[i];
+        if ([arrival objectForKey:@"estimated"]) {
+        double estimatedTime = [[arrival objectForKey:@"estimated"] doubleValue]/1000;
+        NSDate* arrivalDate = [NSDate dateWithTimeIntervalSince1970:estimatedTime];
+        double minutes = [arrivalDate timeIntervalSinceNow] / 60;
         
-        for(NSInteger i = 0;i < [minuteArray count]; i++){
-            NSMenuItem *item = [statusMenu insertItemWithTitle:[NSString stringWithFormat:@"%@", [minuteArray objectAtIndex:i]] action:nil keyEquivalent:@"" atIndex:i];
-            
-            //A sort-of hack to not receive a warning about the unused item variable.
-            if(i == 0){
-                [statusItem setTitle:item.title];
-            }
+        NSMenuItem *item = [statusMenu insertItemWithTitle:[NSString stringWithFormat:@"Bus: %@ - %.0lfm", [arrival valueForKey:@"route"], minutes] action:nil keyEquivalent:@"" atIndex:i];
+        
+        //A sort-of hack to not receive a warning about the unused item variable.
+        if(i == 0){
+            [statusItem setTitle:item.title];
         }
-        
-
+        }
     }
 }
+
 
 @end
