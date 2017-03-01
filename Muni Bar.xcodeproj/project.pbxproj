@@ -14,6 +14,7 @@
 		6550230816DDD7EC00446CF4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6550230716DDD7EC00446CF4 /* AppDelegate.m */; };
 		6550230B16DDD7ED00446CF4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6550230916DDD7ED00446CF4 /* MainMenu.xib */; };
 		9CD58A281E629B8100EDFB2A /* appkey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9CD58A271E629B8100EDFB2A /* appkey.plist */; };
+		9CD58A2A1E62ABBC00EDFB2A /* preference-window.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CD58A291E62ABBC00EDFB2A /* preference-window.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		6550230716DDD7EC00446CF4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		6550230A16DDD7ED00446CF4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		9CD58A271E629B8100EDFB2A /* appkey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = appkey.plist; path = "Muni Bar/appkey.plist"; sourceTree = "<group>"; };
+		9CD58A291E62ABBC00EDFB2A /* preference-window.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "preference-window.xib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				6550230716DDD7EC00446CF4 /* AppDelegate.m */,
 				6550230916DDD7ED00446CF4 /* MainMenu.xib */,
 				655022FB16DDD7EC00446CF4 /* Supporting Files */,
+				9CD58A291E62ABBC00EDFB2A /* preference-window.xib */,
 			);
 			path = "Muni Bar";
 			sourceTree = "<group>";
@@ -156,6 +159,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CD58A2A1E62ABBC00EDFB2A /* preference-window.xib in Resources */,
 				9CD58A281E629B8100EDFB2A /* appkey.plist in Resources */,
 				655022FF16DDD7EC00446CF4 /* InfoPlist.strings in Resources */,
 				6550230516DDD7EC00446CF4 /* Credits.rtf in Resources */,

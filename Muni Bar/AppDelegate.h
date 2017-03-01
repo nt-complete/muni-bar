@@ -21,6 +21,7 @@
 
 @property (assign) IBOutlet NSWindow *window;
 
--(IBAction)loadPredictions:(id)sender;
+- (IBAction)loadPredictions:(id)sender;
+- (IBAction)openPreferences:(id)sender;
 
 @end

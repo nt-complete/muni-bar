@@ -662,6 +662,12 @@
                         <action selector="loadPredictions:" target="494" id="547"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Preferences..." tag="11" id="6Ws-Ui-Pmd">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="openPreferences:" target="494" id="N4d-4x-mRe"/>
+                    </connections>
+                </menuItem>
                 <menuItem isSeparatorItem="YES" id="546"/>
                 <menuItem title="Quit Trimet Bud" id="545">
                     <modifierMask key="keyEquivalentModifierMask"/>

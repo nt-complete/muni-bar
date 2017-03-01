@@ -80,5 +80,8 @@ NSString* stopId = @"13329";
     
 }
 
+- (IBAction)openPreferences:(id)sender {
+}
+
 
 @end
