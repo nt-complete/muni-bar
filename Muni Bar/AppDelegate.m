@@ -73,7 +73,16 @@ NSString* stopId = @"7612";
             double minutes = [arrivalDate timeIntervalSinceNow] / 60;
             if (minutes < 0) minutes = 0;
             
-            NSMenuItem *item = [statusMenu insertItemWithTitle:[NSString stringWithFormat:@"Bus %@ - %.0lfm", [arrival valueForKey:@"route"], minutes] action:nil keyEquivalent:@"" atIndex:0];
+            NSMenuItem *item = [NSMenuItem alloc];
+            if (minutes < 1){
+                //NSMenuItem *item = [statusMenu insertItemWithTitle:[NSString stringWithFormat:@"Bus %@ - %.0lfm", [arrival valueForKey:@"route"], minutes] action:nil keyEquivalent:@"" atIndex:0];
+                [item setTitle:[NSString stringWithFormat:@"Bus %@ - due", [arrival valueForKey:@"route"]]];
+            }
+            else{
+                //NSMenuItem *item = [statusMenu insertItemWithTitle:[NSString stringWithFormat:@"Bus %@ - %.0lfm", [arrival valueForKey:@"route"], minutes] action:nil keyEquivalent:@"" atIndex:0];
+                [item setTitle:[NSString stringWithFormat:@"Bus %@ - %.0lfm", [arrival valueForKey:@"route"], minutes]];
+            }
+            [statusMenu insertItem:item atIndex:0];
             
             title = item.title;
             [statusItem setTitle:title];
