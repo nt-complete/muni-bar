@@ -51,8 +51,8 @@ NSString* stopId = @"13329";
     NSError *error = nil;
     NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
     NSLog(@"Loading predictions");
-    NSArray     *arrivals = [[response objectForKey:@"resultSet"] objectForKey:@"arrival"];
-    
+    NSArray *arrivals = [[response objectForKey:@"resultSet"] objectForKey:@"arrival"];
+    NSArray *location = [[response objectForKey:@"resultSet"] objectForKey:@"location"];
     
     // Loop through existing menu items and delete anything
     // up to our first separator.
@@ -72,16 +72,38 @@ NSString* stopId = @"13329";
         NSDate* arrivalDate = [NSDate dateWithTimeIntervalSince1970:estimatedTime];
         double minutes = [arrivalDate timeIntervalSinceNow] / 60;
         
-        NSMenuItem *item = [statusMenu insertItemWithTitle:[NSString stringWithFormat:@"Bus: %@ - %.0lfm", [arrival valueForKey:@"route"], minutes] action:nil keyEquivalent:@"" atIndex:0];
+        NSMenuItem *item = [statusMenu insertItemWithTitle:[NSString stringWithFormat:@"Bus %@ - %.0lfm", [arrival valueForKey:@"route"], minutes] action:nil keyEquivalent:@"" atIndex:0];
         
             title = item.title;
             [statusItem setTitle:title];
-            
         }
     }
-    [statusMenu insertItem:[NSMenuItem separatorItem] atIndex:0];
-    [statusMenu insertItemWithTitle:[NSString stringWithFormat:@"Stop ID: %@", stopId] action:nil keyEquivalent:@"" atIndex:0];
     
+    NSMenuItem *stopIDMenuItem = [NSMenuItem alloc];//stop id in main menu with arrow and stop id label
+    NSMenu *stopSubMenu = [NSMenu alloc];//submenu that opens when user clicks stopIDMenuItem
+    NSMenuItem *stopDescriptionItem = [NSMenuItem alloc];//first item in stopSubMenu
+    //NSString *scratch = [NSString stringWithFormat:@"%@",[location valueForKey:@"desc"]];
+    
+    [stopIDMenuItem setTitle:[NSString stringWithFormat:@"Stop ID: %@", stopId]];
+    //trim parenths, newlines ,whitespaces and quotes from stop desc like: ( \n "stop desc" \n )
+    [stopDescriptionItem setTitle:[
+                                   [[[NSString stringWithFormat:@"%@",[location valueForKey:@"desc"]]
+                                     stringByTrimmingCharactersInSet: [NSCharacterSet punctuationCharacterSet]            ]
+                                    stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]   ]
+                                   stringByTrimmingCharactersInSet: [NSCharacterSet punctuationCharacterSet]            ]
+     ];
+    
+    [stopIDMenuItem setSubmenu:stopSubMenu];
+    
+    [stopSubMenu addItemWithTitle:@"Change Stop…" action:nil keyEquivalent:@""];//placeholder for change stop dialog
+    [stopSubMenu insertItem:[NSMenuItem separatorItem] atIndex:0];//separator
+    [stopSubMenu insertItemWithTitle:@"Watch list here" action:nil keyEquivalent:@"" atIndex:0];//dynamically generate this later
+    [stopSubMenu insertItem:[NSMenuItem separatorItem] atIndex:0];//separator
+    [stopSubMenu insertItem:stopDescriptionItem atIndex:0];//put in item with desc string as title
+    
+    //finish up writing to the main menu
+    [statusMenu insertItem:[NSMenuItem separatorItem] atIndex:0];
+    [statusMenu insertItem:stopIDMenuItem atIndex:0];//attach submenu item to main menu
 }
 
 - (IBAction)openPreferences:(id)sender {
