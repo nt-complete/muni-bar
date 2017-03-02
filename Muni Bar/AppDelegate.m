@@ -15,7 +15,7 @@
 //2626 - hawthorne & chavez westbound
 //4316 - Tyler work eastbound
 //13329 - Nick work
-NSString* stopId = @"13329";
+NSString* stopId = @"7612";
 
 - (void)awakeFromNib {
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
@@ -71,7 +71,8 @@ NSString* stopId = @"13329";
         double estimatedTime = [[arrival objectForKey:@"estimated"] doubleValue]/1000;
         NSDate* arrivalDate = [NSDate dateWithTimeIntervalSince1970:estimatedTime];
         double minutes = [arrivalDate timeIntervalSinceNow] / 60;
-        
+        if (minutes < 0) minutes = 0;
+            
         NSMenuItem *item = [statusMenu insertItemWithTitle:[NSString stringWithFormat:@"Bus %@ - %.0lfm", [arrival valueForKey:@"route"], minutes] action:nil keyEquivalent:@"" atIndex:0];
         
             title = item.title;
