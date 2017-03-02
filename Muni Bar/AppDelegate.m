@@ -11,6 +11,10 @@
 
 @implementation AppDelegate
 
+//7612 - transit mall southbound
+//2626 - hawthorne & chavez westbound
+//4316 - Tyler work eastbound
+//13329 - Nick work
 NSString* stopId = @"13329";
 
 - (void)awakeFromNib {
@@ -24,7 +28,7 @@ NSString* stopId = @"13329";
     minuteArray = [[NSMutableArray alloc] init];
 
     //Refresh data every 60 seconds.
-    [NSTimer scheduledTimerWithTimeInterval:60.0
+    [NSTimer scheduledTimerWithTimeInterval:30.0
                                      target:self
                                    selector:@selector(loadPredictions:)
                                    userInfo:nil

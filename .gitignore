@@ -18,3 +18,9 @@ DerivedData
 .idea/
 
 Muni Bar/appkey.plist
+
+appkey.plist
+
+Muni Bar.xcodeproj/project.pbxproj
+
+Muni Bar/Muni Bar-Info.plist
