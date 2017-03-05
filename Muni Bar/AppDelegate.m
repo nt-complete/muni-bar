@@ -15,7 +15,8 @@
 //2626 - hawthorne & chavez westbound
 //4316 - Tyler work eastbound
 //13329 - Nick work
-NSString* stopId = @"7612";
+//2641 - hawthorne bridge eastbound
+NSString* stopId = @"4316";
 
 - (void)awakeFromNib {
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
@@ -74,13 +75,18 @@ NSString* stopId = @"7612";
             if (minutes < 0) minutes = 0;
             
             NSMenuItem *item = [NSMenuItem alloc];
-            if (minutes < 1){
-                //NSMenuItem *item = [statusMenu insertItemWithTitle:[NSString stringWithFormat:@"Bus %@ - %.0lfm", [arrival valueForKey:@"route"], minutes] action:nil keyEquivalent:@"" atIndex:0];
+            //NSString *line = [NSString stringWithFormat:@"Bus %@", [arrival valueForKey:@"route"]];
+            //NSString *eta = [NSString stringWithFormat:@"%.0lfm", minutes];
+
+            
+            if (minutes < 1) {
                 [item setTitle:[NSString stringWithFormat:@"Bus %@ - due", [arrival valueForKey:@"route"]]];
             }
-            else{
-                //NSMenuItem *item = [statusMenu insertItemWithTitle:[NSString stringWithFormat:@"Bus %@ - %.0lfm", [arrival valueForKey:@"route"], minutes] action:nil keyEquivalent:@"" atIndex:0];
+            else {
                 [item setTitle:[NSString stringWithFormat:@"Bus %@ - %.0lfm", [arrival valueForKey:@"route"], minutes]];
+                
+                //trying to get alignment to work
+                //[item setTitle:[[line stringByPaddingToLength: 16-[eta length] withString:@"-" startingAtIndex: 0] stringByAppendingString:eta]];
             }
             [statusMenu insertItem:item atIndex:0];
             
@@ -105,8 +111,6 @@ NSString* stopId = @"7612";
     
     [stopIDMenuItem setSubmenu:stopSubMenu];
     
-    [stopSubMenu addItemWithTitle:@"Change Stop…" action:nil keyEquivalent:@""];//placeholder for change stop dialog
-    [stopSubMenu insertItem:[NSMenuItem separatorItem] atIndex:0];//separator
     [stopSubMenu insertItemWithTitle:@"Watch list here" action:nil keyEquivalent:@"" atIndex:0];//dynamically generate this later
     [stopSubMenu insertItem:[NSMenuItem separatorItem] atIndex:0];//separator
     [stopSubMenu insertItem:stopDescriptionItem atIndex:0];//put in item with desc string as title
@@ -117,6 +121,7 @@ NSString* stopId = @"7612";
 }
 
 - (IBAction)openPreferences:(id)sender {
+    
 }
 
 
